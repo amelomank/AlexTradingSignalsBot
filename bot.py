@@ -1,6 +1,4 @@
 from random import randint
-import os
-from threading import Thread
 
 import openpyxl
 from aiogram import Bot, Dispatcher, types
