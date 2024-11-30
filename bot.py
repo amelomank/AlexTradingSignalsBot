@@ -1,5 +1,4 @@
 from random import randint
-from flask import Flask
 import os
 from threading import Thread
 
@@ -638,21 +637,48 @@ async def обработчик_кнопок_пользователя(message: ty
         await message.answer('Ты не можешь пользоваться ботом!')
 
 
-# Flask-приложение
-app = Flask(__name__)
+import os
+import time
+import socket
+from threading import Thread
 
-@app.route('/')
-def home():
-    return "Бот работает!"
+# Функция для имитации серверного порта
+def simulate_server():
+    # Настроим сокет для прослушивания порта
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('0.0.0.0', 8080))  # Открываем порт 8080
+    server_socket.listen(1)  # Максимальное количество соединений
 
-def run_web():
-    port = int(os.environ.get("PORT", 5000))  # Порт, на котором будет слушать сервер
-    app.run(host="0.0.0.0", port=port)
+    print("Сервер запущен. Ожидание соединения...")
 
-# Запуск Flask-сервера в отдельном потоке
+    while True:
+        try:
+            client_socket, client_address = server_socket.accept()  # Принять подключение
+            print(f"Соединение с {client_address} установлено.")
+
+            # Чтение данных от клиента (можно просто игнорировать)
+            data = client_socket.recv(1024)
+            print(f"Получено сообщение от клиента: {data.decode()}")
+
+            # Ответ клиенту
+            client_socket.send(b"Соединение успешно установлено!")
+
+            # Закрыть соединение
+            client_socket.close()
+        except Exception as e:
+            print(f"Ошибка сервера: {e}")
+            time.sleep(5)  # Подождать немного, если возникла ошибка
+
+# Создаем и запускаем поток для имитации сервера
+def start_simulation():
+    server_thread = Thread(target=simulate_server)
+    server_thread.daemon = True  # Завершается, когда программа завершена
+    server_thread.start()
+
 if __name__ == "__main__":
-    Thread(target=run_web).start()
-
+    start_simulation()  # Запускаем сервер в фоновом режиме
+    # Далее идет код для запуска твоего бота
+    bot.polling(none_stop=True)  # Важно: bot.polling должен быть в конце
 
 
 print('Бот запущен!')
