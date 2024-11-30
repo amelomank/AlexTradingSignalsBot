@@ -627,13 +627,6 @@ async def обработчик_кнопок_пользователя(message: ty
         await message.answer('Ты не можешь пользоваться ботом!')
 
 
-print('Бот запущен!')
-async def main():
-    await dp.start_polling(bot)
-if __name__ == '__main__':
-    asyncio.run(main()) 
-
-
 # Flask-приложение
 app = Flask(__name__)
 
@@ -648,3 +641,11 @@ def run_web():
 # Запуск Flask-сервера в отдельном потоке
 if __name__ == "__main__":
     Thread(target=run_web).start()
+
+
+print('Бот запущен!')
+async def main():
+    await dp.start_polling(bot)
+if __name__ == '__main__':
+    asyncio.run(main()) 
+
