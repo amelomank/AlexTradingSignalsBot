@@ -640,7 +640,7 @@ async def обработчик_кнопок_пользователя(message: ty
 async def тики_бота():
     тики = 0
     while True:
-        await asyncio.sleep(60)
+        await asyncio.sleep(100)
         тики += 1
         print(тики)
 print('Бот запущен!')
