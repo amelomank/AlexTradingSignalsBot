@@ -659,7 +659,7 @@ def simulate_server():
             print(f"Получено сообщение от клиента: {data.decode()}")
 
             # Ответ клиенту
-            client_socket.send(b"Соединение успешно установлено!")
+            client_socket.send("Соединение успешно установлено!".encode('utf-8'))
 
             # Закрыть соединение
             client_socket.close()
