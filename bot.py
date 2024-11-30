@@ -1,5 +1,9 @@
 from random import randint
 
+from flask import Flask
+import os
+from threading import Thread
+
 import openpyxl
 from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ContentType
@@ -629,11 +633,6 @@ async def main():
 if __name__ == '__main__':
     asyncio.run(main()) 
 
-
-
-from flask import Flask
-import os
-from threading import Thread
 
 # Flask-приложение
 app = Flask(__name__)
