@@ -1,4 +1,7 @@
 from random import randint
+from flask import Flask
+import os
+from threading import Thread
 
 import openpyxl
 from aiogram import Bot, Dispatcher, types
@@ -633,6 +636,23 @@ async def обработчик_кнопок_пользователя(message: ty
             await message.answer("Если бот заглючил или что-то не работает попробуй /start")
     else:
         await message.answer('Ты не можешь пользоваться ботом!')
+
+
+# Flask-приложение
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Бот работает!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 5000))  # Порт, на котором будет слушать сервер
+    app.run(host="0.0.0.0", port=port)
+
+# Запуск Flask-сервера в отдельном потоке
+if __name__ == "__main__":
+    Thread(target=run_web).start()
+
 
 
 print('Бот запущен!')
