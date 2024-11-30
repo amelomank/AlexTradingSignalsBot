@@ -627,4 +627,25 @@ print('Бот запущен!')
 async def main():
     await dp.start_polling(bot)
 if __name__ == '__main__':
-    asyncio.run(main())
+    asyncio.run(main()) 
+
+
+
+from flask import Flask
+import os
+from threading import Thread
+
+# Flask-приложение
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Бот работает!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 5000))  # Порт, на котором будет слушать сервер
+    app.run(host="0.0.0.0", port=port)
+
+# Запуск Flask-сервера в отдельном потоке
+if __name__ == "__main__":
+    Thread(target=run_web).start()
